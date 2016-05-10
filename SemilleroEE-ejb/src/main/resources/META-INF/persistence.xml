@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="SemilleroPU" transaction-type="JTA">
+    <jta-data-source>java:jboss/datasources/semillerods</jta-data-source>
+    <class>com.uniminuto.edu.modelo.GpsCatanalisis</class>
+    <class>com.uniminuto.edu.modelo.GpsLugar</class>
+    <class>com.uniminuto.edu.modelo.GpsLugxrecxfnr</class>
+    <class>com.uniminuto.edu.modelo.GpsPercepcion</class>
+    <class>com.uniminuto.edu.modelo.GpsRecorrido</class>
+    <class>com.uniminuto.edu.modelo.GpsTipolug</class>
+    <class>com.uniminuto.edu.modelo.SysDepartamento</class>
+    <class>com.uniminuto.edu.modelo.SysDetfuncionario</class>
+    <class>com.uniminuto.edu.modelo.SysFuncionario</class>
+    <class>com.uniminuto.edu.modelo.SysInforme</class>
+    <class>com.uniminuto.edu.modelo.SysInfxfrn</class>
+    <class>com.uniminuto.edu.modelo.SysInfxrol</class>
+    <class>com.uniminuto.edu.modelo.SysMenuprin</class>
+    <class>com.uniminuto.edu.modelo.SysModulos</class>
+    <class>com.uniminuto.edu.modelo.SysMunicipio</class>
+    <class>com.uniminuto.edu.modelo.SysRol</class>
+    <class>com.uniminuto.edu.modelo.SysRolxfrn</class>
+    <class>com.uniminuto.edu.modelo.SysSubmodproc</class>
+    <class>com.uniminuto.edu.modelo.SysSubmodxfrn</class>
+    <class>com.uniminuto.edu.modelo.SysSubmodxrol</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+    <properties/>
+  </persistence-unit>
+</persistence>
