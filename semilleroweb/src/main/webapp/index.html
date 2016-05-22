@@ -21,39 +21,117 @@
         <form name="fer">
 
         </form>
-        <div id="map"></div>
+        <div id="map" style="width: 500px; height: 400px"></div>
+        <div id="resultado">
+
+        </div>
+        <div>
+            <table border="1">
+
+                <tbody>
+                    <tr>
+                        <td>Descripción</td>
+                        <td><textarea id="descsitio" name="descsitio" rows="4" cols="20">
+                            </textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Longitud</td>
+                        <td> <div id="coord"></div></td>
+                    </tr>
+                </tbody>
+            </table><input type="submit" value="Enviar" onclick="agregarInfoWindow();"/>
+
+
+
+        </div>
         <script>
+            var marker;
+            var infowindow;
+            var map;
+            function realizaProceso(valorCaja1, valorCaja2) {
+                var parametros = {
+                    "lat": valorCaja1,
+                    "lng": valorCaja2
+                };
+                $.ajax({
+                    data: parametros,
+                    url: 'GuardarDatosMapaSRV',
+                    type: 'post',
+                    beforeSend: function () {
+                        $("#resultado").html("Procesando, espere por favor...");
+                    },
+                    success: function (response) {
+                        $("#resultado").html(response);
+                    }
+                });
+            }
+
+            function agregarInfoWindow() {
+                var valor = '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        '</div>' +
+                        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+                        '<div id="bodyContent"><p>' + $("#descsitio").val()+
+                         '</b>' +
+                        '</div>' +
+                        '</div>';
+
+                infowindow = new google.maps.InfoWindow({
+                    content: valor
+
+                });
+                infowindow.open(map, marker);
+
+            }
+
             function initMap() {
                 var myLatlng = {lat: -25.363, lng: 131.044};
 
-                var map = new google.maps.Map(document.getElementById('map'), {
+                map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 4,
                     center: myLatlng
                 });
 
-                var marker = new google.maps.Marker({
-                    position: myLatlng,
-                    map: map,
-                    title: 'Click to zoom'
+                google.maps.event.addListener(map, 'click', function (e) {
+                    placeMarker(e.latLng, map);
                 });
 
-                map.addListener('center_changed', function () {
-                    // 3 seconds after the center of the map has changed, pan back to the
-                    // marker.
-                    window.setTimeout(function () {
-                        map.panTo(marker.getPosition());
-                    }, 3000);
-                });
-
-                marker.addListener('click', function () {
-                    map.setZoom(8);
-                    map.setCenter(marker.getPosition());
-
-                    $.get('GuardarDatosMapaSRV', function (data) {
-                        alert(data);
+                function placeMarker(position, map) {
+                    marker = new google.maps.Marker({
+                        position: position,
+                        map: map
                     });
 
-                });
+                    realizaProceso(position.lat, position.lng);
+                    map.panTo(position);
+                }
+
+
+                /*
+                 var marker = new google.maps.Marker({
+                 position: myLatlng,
+                 map: map,
+                 title: 'Click to zoom'
+                 });
+                 
+                 map.addListener('center_changed', function () {
+                 // 3 seconds after the center of the map has changed, pan back to the
+                 // marker.
+                 window.setTimeout(function () {
+                 map.panTo(marker.getPosition());
+                 }, 3000);
+                 });
+                 
+                 marker.addListener('click', function () {
+                 map.setZoom(8);
+                 map.setCenter(marker.getPosition());
+                 
+                 $.get('GuardarDatosMapaSRV', function (data) {
+                 alert(data);
+                 });
+                 
+                 });
+                 */
             }
 
         </script>

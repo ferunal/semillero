@@ -6,41 +6,56 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <script type="text/javascript">
-            var map;
-            var eventlatLng; //new var
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-            $(document).ready(function () {
-                //no changes in document.ready
-            });
 
-            google.maps.event.addListener(map, 'click', function (event) {
-                if (event.latLng) {
-                    eventlatLng = event.latLng; // new var set here
-                    $('#divConfirmDialog').html('Add marker?');
-                    $('#divConfirmDialog').dialog('open');
-                }
-            });
-
-            $('#divConfirmDialog').dialog({
-                dialogClass: 'dialogShadow',
-                resizable: false,
-                height: 100,
-                autoOpen: false,
-                modal: true,
-                buttons: {
-                    "Add Marker?": function () {
-                        addMarker(map, eventlatLng); //added call to function with new var
-                        $(this).dialog("close");
-                    },
-                    "Don't Add": function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-        </script>
     </head>
     <body>
+        <script type="text/javascript">
+            $(document).ready(function () {
+            });
+            function initMap() {
+             
+
+              
+                var map;
+                var eventlatLng; //new var
+
+
+                //no changes in document.ready
+
+                /*
+                 google.maps.event.addListener(map, 'click', function (event) {
+                 if (event.latLng) {
+                 eventlatLng = event.latLng; // new var set here
+                 $('#divConfirmDialog').html('Add marker?');
+                 $('#divConfirmDialog').dialog('open');
+                 }
+                 });
+                 
+                 $('#divConfirmDialog').dialog({
+                 dialogClass: 'dialogShadow',
+                 resizable: false,
+                 height: 100,
+                 autoOpen: false,
+                 modal: true,
+                 buttons: {
+                 "Add Marker?": function () {
+                 addMarker(map, eventlatLng); //added call to function with new var
+                 $(this).dialog("close");
+                 },
+                 "Don't Add": function () {
+                 $(this).dialog("close");
+                 }
+                 }
+                 });
+                 */
+            }
+
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8jAPFRBTldzn0l8hF7J7XCAloDJaiSlU&callback=initMap&language=es">
+        </script>
         <div id="divConfirmDialog">
 
         </div>

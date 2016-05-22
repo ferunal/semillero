@@ -34,7 +34,8 @@ public class GuardarDatosMapaSRV extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("Successfully Logged in...");
+            out.println( "Latitud: " + request.getParameter("lat") + ", Longitud: " + request.getParameter("lng"));
+           
           
         }
     }
@@ -68,6 +69,12 @@ public class GuardarDatosMapaSRV extends HttpServlet {
         processRequest(request, response);
     }
 
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     /**
      * Returns a short description of the servlet.
      *
