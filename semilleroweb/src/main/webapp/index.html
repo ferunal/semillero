@@ -32,12 +32,12 @@
 
                 <tbody>
                     <tr>
-                        <td>Descripción</td>
-                        <td><textarea id="descsitio" name="descsitio" rows="4" cols="20">
+                        <td>Nombre</td>
+                        <td><textarea id="nomsitio" name="nomsitio" rows="4" cols="20">
                             </textarea></td>
                     </tr>
                     <tr>
-                        <td>Imagen</td>
+                        <td>Descripción</td>
 
                         <td><textarea id="descsitio" name="descsitio" rows="4" cols="20">
                             </textarea></td>
@@ -54,7 +54,7 @@
             var marker;
             var infowindow;
             var map;
-             //var infoWindow = new google.maps.InfoWindow({map: map});
+            //var infoWindow = new google.maps.InfoWindow({map: map});
             function realizaProceso(valorCaja1, valorCaja2) {
                 var parametros = {
                     "lat": valorCaja1,
@@ -98,7 +98,7 @@
                     zoom: 4,
                     center: myLatlng
                 });
-                 // Try HTML5 geolocation.
+                // Try HTML5 geolocation.
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function (position) {
                         var pos = {
@@ -130,7 +130,7 @@
                     realizaProceso(position.lat, position.lng);
                     map.panTo(position);
                 }
-               
+
             }
 
             function handleLocationError(browserHasGeolocation, infoWindow, pos) {
