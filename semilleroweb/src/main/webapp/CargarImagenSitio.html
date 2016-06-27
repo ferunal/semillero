@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="application/x-javascript" src="http://api.bridgeit.mobi/bridgeit/bridgeit.js"></script>
+        <script type="text/javascript">
+            function onAfterPhotoCapture(event) {
+                var id = event.name;
+                var cameraBtn = document.getElementById(id);
+                if (event.preview) {
+                    //show the thumbnail preview
+                    var thumbnailElem = document.createElement("img");
+                    thumbnailElem.setAttribute("src", event.preview);
+                }
+                if (event.response) {
+                    //show the image
+                    //assume the server is sending back the url of the uploaded image
+                    var photoURL = event.response;
+                    var imageLink = document.createElement('a');
+                    imageLink.setAttribute('href', photoURL);
+                    //set the thumbnail img as the link child
+                    imageLink.appendChild(thumbnailElem);
+                    //append the new link after the camera btn
+                    cameraBtn.parentNode.appendChild(imageLink);
+                }
+            }
+        </script>
+    </head>
+    <body>
+
+        <form action="UploadServlet" method="post"
+              enctype="multipart/form-data">
+            <input type="file" name="file" size="50" />
+            <br />
+            <input type="submit" value="Upload File" />
+        </form>
+    </body>
+</html>

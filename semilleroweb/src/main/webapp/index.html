@@ -5,6 +5,8 @@
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
         <style>
             html, body {
                 height: 100%;
@@ -35,19 +37,24 @@
                             </textarea></td>
                     </tr>
                     <tr>
-                        <td>Longitud</td>
-                        <td> <div id="coord"></div></td>
+                        <td>Imagen</td>
+
+                        <td><textarea id="descsitio" name="descsitio" rows="4" cols="20">
+                            </textarea></td>
                     </tr>
+
                 </tbody>
             </table><input type="submit" value="Enviar" onclick="agregarInfoWindow();"/>
 
 
 
         </div>
+
         <script>
             var marker;
             var infowindow;
             var map;
+             //var infoWindow = new google.maps.InfoWindow({map: map});
             function realizaProceso(valorCaja1, valorCaja2) {
                 var parametros = {
                     "lat": valorCaja1,
@@ -71,8 +78,8 @@
                         '<div id="siteNotice">' +
                         '</div>' +
                         '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-                        '<div id="bodyContent"><p>' + $("#descsitio").val()+
-                         '</b>' +
+                        '<div id="bodyContent"><p>' + $("#descsitio").val() +
+                        '</b>' +
                         '</div>' +
                         '</div>';
 
@@ -91,6 +98,24 @@
                     zoom: 4,
                     center: myLatlng
                 });
+                 // Try HTML5 geolocation.
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent('Lugar encontrado.');
+                        map.setCenter(pos);
+                    }, function () {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
 
                 google.maps.event.addListener(map, 'click', function (e) {
                     placeMarker(e.latLng, map);
@@ -105,34 +130,42 @@
                     realizaProceso(position.lat, position.lng);
                     map.panTo(position);
                 }
-
-
-                /*
-                 var marker = new google.maps.Marker({
-                 position: myLatlng,
-                 map: map,
-                 title: 'Click to zoom'
-                 });
-                 
-                 map.addListener('center_changed', function () {
-                 // 3 seconds after the center of the map has changed, pan back to the
-                 // marker.
-                 window.setTimeout(function () {
-                 map.panTo(marker.getPosition());
-                 }, 3000);
-                 });
-                 
-                 marker.addListener('click', function () {
-                 map.setZoom(8);
-                 map.setCenter(marker.getPosition());
-                 
-                 $.get('GuardarDatosMapaSRV', function (data) {
-                 alert(data);
-                 });
-                 
-                 });
-                 */
+               
             }
+
+            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(browserHasGeolocation ?
+                        'Error: El servicio de geolocalización falló.' :
+                        'Error: Activa el sensor de geolocalización.');
+            }
+
+            /*
+             var marker = new google.maps.Marker({
+             position: myLatlng,
+             map: map,
+             title: 'Click to zoom'
+             });
+             
+             map.addListener('center_changed', function () {
+             // 3 seconds after the center of the map has changed, pan back to the
+             // marker.
+             window.setTimeout(function () {
+             map.panTo(marker.getPosition());
+             }, 3000);
+             });
+             
+             marker.addListener('click', function () {
+             map.setZoom(8);
+             map.setCenter(marker.getPosition());
+             
+             $.get('GuardarDatosMapaSRV', function (data) {
+             alert(data);
+             });
+             
+             });
+             */
+
 
         </script>
         <script async defer

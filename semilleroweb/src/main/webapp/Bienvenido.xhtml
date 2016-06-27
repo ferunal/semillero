@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+
+
+    <ui:composition template="/includes/cabecera.xhtml">
+
+        <ui:define name="top">
+            top
+        </ui:define>
+
+        <ui:define name="left">
+            left
+        </ui:define>
+
+        <ui:define name="content">
+            <ace:accordion collapsible="true"  >
+                <ace:accordionPane title="Registrarse" id="acrRegistro"> 
+
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Identificación"/>
+                        <ace:textEntry value="#{administracionJSFBean.tablaUsuarioSel.sysFuncionario.frnId}">
+                            <ace:ajax execute="@this" render="@this"/>
+                        </ace:textEntry>
+                        <h:outputText value="Nombres"/>
+                        <ace:textEntry value="#{administracionJSFBean.tablaUsuarioSel.sysFuncionario.frnNombre}">
+                            <ace:ajax execute="@this" render="@this"/>
+                        </ace:textEntry>
+                        <h:outputText value="Apellidos"/>
+                        <ace:textEntry value="#{administracionJSFBean.tablaUsuarioSel.sysFuncionario.frnApellido}">
+                            <ace:ajax execute="@this" render="@this"/>
+                        </ace:textEntry>
+                        <h:outputText value="Correo"/>
+                        <ace:textEntry value="#{administracionJSFBean.tablaUsuarioSel.sysFuncionario.frnEmail}">
+                            <ace:ajax execute="@this" render="@this"/>
+                        </ace:textEntry>
+                        <h:outputText value="Usuario"/>
+                        <ace:textEntry value="#{administracionJSFBean.tablaUsuarioSel.sysFuncionario.frnUsuario}">
+                            <ace:ajax execute="@this" render="@this"/>
+                        </ace:textEntry>
+                        <h:outputText value="Clave"/>
+                        <ace:textEntry secret="true" value="#{administracionJSFBean.strClave1}">
+                            <ace:ajax execute="@this" render="@this"/>
+                        </ace:textEntry>
+                        <h:outputText value="Confirmación clave"/>
+                        <ace:textEntry secret="true" value="#{administracionJSFBean.strClave2}">
+                            <ace:ajax execute="@this" render="@this"/>
+                        </ace:textEntry>
+                        <ace:pushButton value="Registrarse" actionListener="#{administracionJSFBean.registrarUsuario_AE}"  >
+                            <ace:ajax execute="acrRegistro" render="acrRegistro"/>
+                        </ace:pushButton>
+                    </h:panelGrid>
+
+                </ace:accordionPane>
+                <ace:accordionPane title="Ingresar" id="acrIngreso">
+                    <h:panelGrid columns="2">
+
+                        <h:outputText value="Usuario"/>
+                        <ace:textEntry value="#{administracionJSFBean.tablaUsuarioSel.sysFuncionario.frnUsuario}"/>
+                        <h:outputText value="Clave"/>
+                        <ace:textEntry secret="true" value="#{administracionJSFBean.strClave1}"/>                          
+                        <ace:pushButton value="Ingresar" actionListener="#{administracionJSFBean.validarUsuario_AE}" >
+                            <ace:ajax execute="acrIngreso" render="@form"/>
+                        </ace:pushButton>
+                    </h:panelGrid>
+
+
+                </ace:accordionPane>
+            </ace:accordion>
+
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

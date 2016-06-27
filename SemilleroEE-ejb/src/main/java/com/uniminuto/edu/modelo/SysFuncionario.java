@@ -30,15 +30,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "sys_funcionario")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SysFuncionario.findAll", query = "SELECT s FROM SysFuncionario s"),
+    @NamedQuery(name = "SysFuncionario.findAll", query = "SELECT s FROM SysFuncionario s ORDER BY s.frnNombre, s.frnApellido"),
     @NamedQuery(name = "SysFuncionario.findByFrnId", query = "SELECT s FROM SysFuncionario s WHERE s.frnId = :frnId"),
     @NamedQuery(name = "SysFuncionario.findByFrnNombre", query = "SELECT s FROM SysFuncionario s WHERE s.frnNombre = :frnNombre"),
     @NamedQuery(name = "SysFuncionario.findByFrnApellido", query = "SELECT s FROM SysFuncionario s WHERE s.frnApellido = :frnApellido"),
     @NamedQuery(name = "SysFuncionario.findByFrnUsuario", query = "SELECT s FROM SysFuncionario s WHERE s.frnUsuario = :frnUsuario"),
-    @NamedQuery(name = "SysFuncionario.findByFrnClave", query = "SELECT s FROM SysFuncionario s WHERE s.frnClave = :frnClave"),
+    @NamedQuery(name = "SysFuncionario.findByFrnClave", query = "SELECT s FROM SysFuncionario s WHERE s.frnClave = :frnClave "),
     @NamedQuery(name = "SysFuncionario.findByFrnEstado", query = "SELECT s FROM SysFuncionario s WHERE s.frnEstado = :frnEstado"),
     @NamedQuery(name = "SysFuncionario.findByIndversion", query = "SELECT s FROM SysFuncionario s WHERE s.indversion = :indversion"),
-    @NamedQuery(name = "SysFuncionario.findByRolId", query = "SELECT s FROM SysFuncionario s WHERE s.rolId = :rolId")})
+    @NamedQuery(name = "SysFuncionario.findByRolId", query = "SELECT s FROM SysFuncionario s WHERE s.rolId = :rolId"),
+    @NamedQuery(name = "SysFuncionario.validarUsr", query = "SELECT u FROM SysFuncionario u WHERE u.frnUsuario = :frnUsuario AND u.frnClave = :frnClave AND u.frnEstado = :frnEstado"),})
 public class SysFuncionario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,6 +67,8 @@ public class SysFuncionario implements Serializable {
     private Integer indversion;
     @Column(name = "rol_id")
     private Integer rolId;
+    @Column(name = "frn_email")
+    private String frnEmail;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "frnId")
     private List<SysInfxfrn> sysInfxfrnList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "sysFuncionario")
@@ -216,5 +219,19 @@ public class SysFuncionario implements Serializable {
     public String toString() {
         return "com.uniminuto.edu.modelo.SysFuncionario[ frnId=" + frnId + " ]";
     }
-    
+
+    /**
+     * @return the frnEmail
+     */
+    public String getFrnEmail() {
+        return frnEmail;
+    }
+
+    /**
+     * @param frnEmail the frnEmail to set
+     */
+    public void setFrnEmail(String frnEmail) {
+        this.frnEmail = frnEmail;
+    }
+
 }
